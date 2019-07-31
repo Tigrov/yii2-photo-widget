@@ -11,5 +11,5 @@ class PhotoWidgetAsset extends \yii\web\AssetBundle
     public $sourcePath = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
     public $js = ['upload-photo.js'];
     public $css = ['upload-photo.css'];
-    public $depends = ['CropperAsset'];
+    public $depends = [CropperAsset::class];
 }
