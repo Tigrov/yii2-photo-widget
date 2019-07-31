@@ -90,7 +90,9 @@ Create a form with the file attribute
 <?php $form::end(); ?>
 ```
 
-After submitting the file it will be saved to specified `path`.
+![drawing](photo-widget.png)
+
+After submitting the photo it will be saved to specified `path`.
 
 License
 -------
