@@ -102,20 +102,18 @@ class PhotoWidget extends \yii\widgets\InputWidget
         PhotoWidgetAsset::register($this->getView());
         $this->registerJs();
 
-        $id = $this->options['id'];
-        $src = $this->url ?: $this->defaultImage;
-
         $styleWidth = $this->width ? 'width:' . $this->width . 'px;' : '';
         $styleHeight = $this->height ? 'height:' . $this->height . 'px;' : '';
         $style = $styleWidth . $styleHeight;
 
+        $src = $this->url ?: $this->defaultImage;
         $imageOptions = array_merge(['style' => $style], $this->imageOptions);
         $imageHtml = Html::img($src, $imageOptions);
 
         $fileOptions = array_merge($this->options, $this->fileOptions);
         $fileHtml = Html::activeFileInput($this->model, $this->attribute, $fileOptions);
 
-        $buttonHtml = Html::label($this->buttonText . ' ' . $fileHtml, $id, $this->buttonOptions);
+        $buttonHtml = Html::label($this->buttonText . ' ' . $fileHtml, $this->options['id'], $this->buttonOptions);
         $cancelHtml = Html::button('&times;', $this->cancelOptions);
         $buttonsHtml = Html::tag('div', $buttonHtml . $cancelHtml, ['class' => 'clearfix', 'style' => $styleWidth]);
 
