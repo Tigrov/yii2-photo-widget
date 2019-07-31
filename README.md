@@ -30,7 +30,7 @@ Usage
 
 It is better to use the extension with [yii2-upload-behavior](https://github.com/Tigrov/yii2-upload-behavior)
 
-Once the extension is installed, add the behavior to ActiveRecord model as follow:
+Once the extension is installed, you can use it as follow:
 
 Create a model with a photo attribute
 ```php
