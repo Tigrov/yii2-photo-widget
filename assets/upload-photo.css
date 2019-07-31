@@ -4,7 +4,6 @@
 }
 .upload-photo-image {
     max-width: 100%;
-    background: url("photo.svg") 50% 50% no-repeat;
     cursor: pointer;
 }
 .upload-photo-field {

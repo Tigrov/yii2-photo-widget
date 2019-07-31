@@ -15,9 +15,10 @@ class PhotoWidget extends \yii\widgets\InputWidget
 {
     const DETAILS = ['x', 'y', 'width', 'height', 'rotate', 'scaleX', 'scaleY'];
 
-    /** @var string empty 1 pixel by default */
-    public $defaultImage = 'data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+    /** @var string default image URL. It will be displayed if no image provided */
+    public $defaultUrl;
 
+    /** @var string URL of actual image. If null it will try to get it from model attribute value */
     public $url;
 
     public $fileOptions = ['class' => 'upload-photo-field'];
@@ -95,18 +96,22 @@ class PhotoWidget extends \yii\widgets\InputWidget
                 $this->detailIds[$detail] = str_replace(['[]', '][', '[', ']', ' ', '.'], ['', '-', '-', '', '-', '-'], mb_strtolower($this->detailNames[$detail], \Yii::$app->charset));
             }
         }
+
+        PhotoWidgetAsset::register($this->getView());
+        if ($this->defaultUrl === null) {
+            $this->defaultUrl = \Yii::$app->assetManager->getPublishedUrl((new PhotoWidgetAsset)->sourcePath) . '/photo.svg';
+        }
     }
 
     public function run()
     {
-        PhotoWidgetAsset::register($this->getView());
         $this->registerJs();
 
         $styleWidth = $this->width ? 'width:' . $this->width . 'px;' : '';
         $styleHeight = $this->height ? 'height:' . $this->height . 'px;' : '';
         $style = $styleWidth . $styleHeight;
 
-        $src = $this->url ?: $this->defaultImage;
+        $src = $this->url ?: $this->defaultUrl;
         $imageOptions = array_merge(['style' => $style], $this->imageOptions);
         $imageHtml = Html::img($src, $imageOptions);
 
