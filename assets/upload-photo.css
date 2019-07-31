@@ -1,5 +1,6 @@
 .upload-photo-wrapper {
     margin-bottom: 0.5rem;
+    overflow: hidden;
 }
 .upload-photo-image {
     max-width: 100%;

@@ -30,24 +30,20 @@ class PhotoWidget extends \yii\widgets\InputWidget
 
     public $cancelOptions = ['class' => 'btn btn-danger float-right', 'style' => 'display:none'];
 
-    public $imageOptions = [
-        'class' => 'upload-photo-image img-thumbnail',
-        'width' => 200,
-        'height' => 200
-    ];
+    public $imageOptions = ['class' => 'upload-photo-image img-thumbnail'];
 
     public $cropperOptions = [
         'viewMode' => 3,
         'dragMode' => 'move',
     ];
 
+    public $width = 200;
+
+    public $height = 200;
+
     public $ratio;
 
     protected $mimeType = 'image';
-
-    private $width;
-
-    private $height;
 
     /** @var array hidden input names of cropping result for x, y, width, height, rotate, scaleX, scaleY */
     public $detailNames = [];
@@ -70,14 +66,14 @@ class PhotoWidget extends \yii\widgets\InputWidget
                     : null);
         }
 
-        if ($this->value && !StringHelper::startsWith($this->value, 'data:') && is_readable($this->value)) {
-            list($this->width, $this->height, $this->mimeType) = getimagesize($this->value);
+        if (!isset($this->imageOptions['width']) && $this->width) {
+            $this->imageOptions['width'] = $this->width;
+        }
+        if (!isset($this->imageOptions['height']) && $this->height) {
+            $this->imageOptions['height'] = $this->height;
         }
 
-        $this->width = $this->imageOptions['width'] ?? $this->width;
-        $this->height = $this->imageOptions['height'] ?? $this->height;
-
-        if (!$this->ratio && $this->width && $this->height) {
+        if ($this->ratio === null && $this->width && $this->height) {
             $this->ratio = $this->width / $this->height;
         }
 
