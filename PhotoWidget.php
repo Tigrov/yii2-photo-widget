@@ -66,13 +66,6 @@ class PhotoWidget extends \yii\widgets\InputWidget
                     : null);
         }
 
-        if (!isset($this->imageOptions['width']) && $this->width) {
-            $this->imageOptions['width'] = $this->width;
-        }
-        if (!isset($this->imageOptions['height']) && $this->height) {
-            $this->imageOptions['height'] = $this->height;
-        }
-
         if ($this->ratio === null && $this->width && $this->height) {
             $this->ratio = $this->width / $this->height;
         }
@@ -107,23 +100,26 @@ class PhotoWidget extends \yii\widgets\InputWidget
     public function run()
     {
         PhotoWidgetAsset::register($this->getView());
-
         $this->registerJs();
 
-        $src = $this->url ?: $this->defaultImage;
-        $imageHtml = Html::img($src, $this->imageOptions);
         $id = $this->options['id'];
-        $fileOptions = array_merge($this->options, $this->fileOptions);
+        $src = $this->url ?: $this->defaultImage;
+
         $styleWidth = $this->width ? 'width:' . $this->width . 'px;' : '';
         $styleHeight = $this->height ? 'height:' . $this->height . 'px;' : '';
         $style = $styleWidth . $styleHeight;
-        $wrapperOptions = array_merge(['style' => $style], $this->wrapperOptions);
 
+        $imageOptions = array_merge(['style' => $style], $this->imageOptions);
+        $imageHtml = Html::img($src, $imageOptions);
+
+        $fileOptions = array_merge($this->options, $this->fileOptions);
         $fileHtml = Html::activeFileInput($this->model, $this->attribute, $fileOptions);
+
         $buttonHtml = Html::label($this->buttonText . ' ' . $fileHtml, $id, $this->buttonOptions);
         $cancelHtml = Html::button('&times;', $this->cancelOptions);
         $buttonsHtml = Html::tag('div', $buttonHtml . $cancelHtml, ['class' => 'clearfix', 'style' => $styleWidth]);
 
+        $wrapperOptions = array_merge(['style' => $style], $this->wrapperOptions);
         $out = Html::tag('div', $imageHtml, $wrapperOptions) . $buttonsHtml;
 
         foreach (static::DETAILS as $detail) {
