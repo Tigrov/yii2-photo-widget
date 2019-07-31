@@ -1,0 +1,35 @@
+{
+    "name": "tigrov/yii2-photo-widget",
+    "description": "Upload photo widget for Yii2",
+    "keywords": ["yii2", "extension", "upload", "photo", "widget"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/tigrov/yii2-photo-widget"
+    },
+    "authors": [
+        {
+            "name": "Sergei Tigrov",
+            "email": "rrr-r@ya.ru"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0",
+        "yiisoft/yii2-imagine": "~2.2.0",
+        "bower-asset/cropper": "~4.0"
+    },
+    "suggest": {
+        "tigrov/yii2-upload-behavior": "File upload behavior for Yii2 ActiveRecord models."
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "tigrov\\photoWidget\\": ""
+        }
+    }
+}
