@@ -3,6 +3,8 @@ yii2-photo-widget
 
 Upload photo widget for Yii2.
 
+![drawing](photo-widget.png)
+
 [![Latest Stable Version](https://poser.pugx.org/Tigrov/yii2-photo-widget/v/stable)](https://packagist.org/packages/Tigrov/yii2-photo-widget)
 
 Installation
@@ -89,8 +91,6 @@ Create a form with the file attribute
     <?= Html::submitButton('Submit') ?>
 <?php $form::end(); ?>
 ```
-
-![drawing](photo-widget.png)
 
 After submitting the photo it will be saved to specified `path`.
 
