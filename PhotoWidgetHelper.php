@@ -32,7 +32,7 @@ class PhotoWidgetHelper
                 } elseif ($height === null) {
                     $height = $width * $size->getHeight() / $size->getWidth();
                 }
-                $image = Image::resize($image, $width, $height);
+                $image = Image::resize($image, $width, $height, true, true);
             }
             $image->save($filename);
 
