@@ -48,7 +48,13 @@ class Model extends \yii\db\ActiveRecord
                  'class' => '\tigrov\uploadBehavior\UploadBehavior',
                  'path' => '@runtime/upload',
                  'attributes' => ['photo'],
-                 'saveCallback' => ['\tigrov\photoWidget\PhotoWidget', 'crop'],
+                 // 'saveCallback' => ['\tigrov\photoWidget\PhotoWidgetHelper', 'crop'],
+                 // or if you need to crop and resize
+                 'saveCallback' => function ($model, $attribute, $file, $filename) {
+                     $width = 200;
+                     $height = 200;
+                     \tigrov\photoWidget\PhotoWidgetHelper::crop($model, $attribute, $file, $filename, $width, $height);
+                 }
             ],
         ];
     }

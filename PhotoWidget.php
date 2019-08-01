@@ -9,7 +9,6 @@ namespace tigrov\photoWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\StringHelper;
-use yii\imagine\Image;
 
 class PhotoWidget extends \yii\widgets\InputWidget
 {
@@ -61,8 +60,9 @@ class PhotoWidget extends \yii\widgets\InputWidget
         }
 
         if ($this->value === null) {
-            $this->value = $this->options['value']
-                ?? ($this->hasModel()
+            $this->value = isset($this->options['value'])
+                ? $this->options['value']
+                : ($this->hasModel()
                     ? Html::getAttributeValue($this->model, $this->attribute)
                     : null);
         }
@@ -154,26 +154,5 @@ class PhotoWidget extends \yii\widgets\InputWidget
         $optionsJson = Json::encode($options, JSON_FORCE_OBJECT);
 
         $this->getView()->registerJs("TigrovPhotoWidget($wrapperId, $fieldId, $imageId, $cancelId, $detailIdsJson, $optionsJson);");
-    }
-
-    /**
-     * Crop and save image
-     * @param \yii\base\Model $model
-     * @param string $attribute
-     * @param \yii\web\UploadedFile $file
-     * @param string $filename
-     * @return bool
-     */
-    public static function crop($model, $attribute, $file, $filename)
-    {
-        if ($data = \Yii::$app->getRequest()->post($model->formName())) {
-            $data = $data[$attribute];
-            $image = Image::crop($file->tempName, $data['width'], $data['height'], [$data['x'], $data['y']]);
-            $image->save($filename);
-
-            return true;
-        }
-
-        return false;
     }
 }
